@@ -1,79 +1,120 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Alarm Clock in React Native
 
-# Getting Started
+[![GithubFollow @svbala99](https://img.shields.io/github/last-commit/svbala99/alarm?)](https://github.com/svbala99/)[![GithubFollow @svbala99](https://img.shields.io/github/languages/count/svbala99/alarm?color=orange)](https://github.com/svbala99/) [![GithubFollow @svbala99](https://img.shields.io/github/languages/top/svbala99/alarm?color=blueviolet)](https://github.com/svbala99/) [![GithubFollow @svbala99](https://img.shields.io/github/languages/code-size/svbala99/alarm?color=pink)](https://github.com/svbala99/) [![GithubFollow @svbala99](https://img.shields.io/github/repo-size/svbala99/alarm)](https://github.com/svbala99/) [![GithubFollow @svbala99](https://img.shields.io/github/commit-activity/m/svbala99/alarm?color=%23DB62B2%20)](https://github.com/svbala99/)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+### A simple app in react native to implement alarm clock that makes use of [react native bridge](https://reactnative.dev/docs/native-modules-android), schedule alarm with [Alarm Manager for Android](https://developer.android.com/reference/android/app/AlarmManager) .
 
-## Step 1: Start the Metro Server
+### Prerequisites: 
+- You should have the latest build system for Android, Java, React Native.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Screenshots
+| View all alarms          | Create or edit alarm         | Ring              |
+|-----------------------------|-------------------------------|--------------------------------|
+| ![](./screenshots/alarm-screen.png) | ![](./screenshots/edit-screen.png) | ![](./screenshots/ring-screen.png) |
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Features
 
-```bash
-# using npm
+- Alarm will go on even if the app is killed; this is the tricky area where you cannot run a task without headless JS when the app is killed - react native apps run on JS thread - single threaded, if that thread is killed, no way to perform any action). Native modules are implemented here, thereby invoking the Native Android Alarm manager to store and retrieve alarm details and fire it approproately with play, pause, update, etc operations.
+
+## Technology
+
+- React Native : For Cross platform mobile app development
+- Node JS: For runtime environment
+- Javascript : For application development
+- VS code : Code editor IDE
+- Linting: eslint
+
+## Installation
+
+This App requires [Node.js](https://nodejs.org/) v10+ to run.
+
+##### Download the repo and install dependencies
+
+```sh
+git clone git@github.com:svbala99/alarm.git
+cd alarm
+npm i
+```
+
+##### Start the development server
+
+```sh
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+##### Install the app first time in Android (in Dev mode)
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+- Connect any Android device with USB
+- Enable USB debugging in the device
+- Accept to INSTALL the app when prompted during the deployment
+- This command is not needed for subsequent changes made in project
+- Whenever you include any package that impacts Android native, reinstall the app by issuing this command
+- Alternatively the same can be achieved from Android Studio IDE by clicking "Run" button after opening "Android" project in it
+- Supported Machines: Windows / Linux / Mac
 
-### For Android
-
-```bash
-# using npm
+```sh
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+##### Install the app first time in iPhones (iOS) - Dev mode
+
+- Connect any Android device with USB
+- Enable USB debugging in the device
+- Accept to INSTALL the app when prompted during the deployment
+- This command is not needed for subsequent changes made in project
+- Whenever you include any package that impacts Android native, reinstall the app by issuing this command
+- Alternatively the same can be achieved from Xcode IDE by clicking "Build" & "Run" button after opening "iOS" folder in it
+- Supported Machines: Mac only
+
+```sh
+cd ios && pod install && cd ..
+npm run ios
+```
+
+## To generate iOS ipa file
+- Set the scheme to "Any iOS Simulator"
+- Xcode -> product -> clean
+- Xcode -> product -> Archive
+- After 15mins, build will be archived, you can export the build now
+- In the archive window opened, choose "development" method of distribution
+- Choose "Automatically manage signing"
+- Select the location you want to export and click OK
+
+## To generate Android APK
 
 ```bash
-# using npm
-npm run ios
+gradlew assembleRelease (APK file)
+gradlew bundleRelease (AAB file)
+```
+- For more details: https://reactnative.dev/docs/signed-apk-android
+Note: If you run in Linux, issue ./gradlew instead of gradlew
 
-# OR using Yarn
-yarn ios
+## Output file location
+
+You will find the APK file in:
+
+```bash
+~PROJECT_LOCATION\android\app\build\outputs\apk\release
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Install the released APK
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+```bash
+adb install app-release.apk
+```
 
-## Step 3: Modifying your App
+## Packages used
 
-Now that you have successfully run the app, let's modify it.
+| Package                   | Version |
+| ------------------------- | ------- |
+| React                     | 17      |
+| React Native              | 0.68.2    |
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+and basic necessary packages for react navigation stack and uuid.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
 
-## Congratulations! :tada:
+## License
 
-You've successfully run and modified your React Native App. :partying_face:
+GNU GPL
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+[![React Native](https://reactnative.dev/img/oss_logo.png)](https://reactnative.dev/)
